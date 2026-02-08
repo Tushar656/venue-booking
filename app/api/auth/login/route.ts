@@ -7,6 +7,9 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(req: Request) {
+    if (!JWT_SECRET) {
+        throw new Error("JWT_SECRET is not defined");
+    }
     try {
         const { email, password } = await req.json();
 

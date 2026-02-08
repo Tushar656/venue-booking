@@ -6,6 +6,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Helper to authenticate user
 async function getAuthenticatedUser(req: Request) {
+    if (!JWT_SECRET) {
+        throw new Error("JWT_SECRET is not defined");
+    }
     const authHeader = req.headers.get("authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return null;
